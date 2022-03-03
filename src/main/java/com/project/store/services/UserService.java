@@ -2,6 +2,7 @@ package com.project.store.services;
 
 import com.project.store.entities.User;
 import com.project.store.repositories.UserRepository;
+import com.project.store.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class UserService {
     }
 
     public User update(Long id, User obj) {
-        User entity = userRepository.findById(id).get();
+        User entity = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         updateData(entity, obj);
         return userRepository.save(entity);
     }
