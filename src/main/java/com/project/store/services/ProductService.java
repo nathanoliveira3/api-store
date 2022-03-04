@@ -2,6 +2,7 @@ package com.project.store.services;
 
 import com.project.store.entities.Product;
 import com.project.store.repositories.ProductRepository;
+import com.project.store.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,7 @@ public class ProductService {
     }
 
     public Product findById(Long id) {
-        return productRepository.findById(id).get();
+        return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
-
 
 }

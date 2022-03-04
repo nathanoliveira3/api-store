@@ -2,6 +2,7 @@ package com.project.store.services;
 
 import com.project.store.entities.Order;
 import com.project.store.repositories.OrderRepository;
+import com.project.store.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class OrderService {
     }
 
     public Order findById(Long id) {
-        return orderRepository.findById(id).get();
+        return orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
 }
